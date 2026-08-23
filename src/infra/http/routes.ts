@@ -8,20 +8,15 @@ export function createUrlsRouter(service: UrlShortenerService): Router {
 
   router.post('/urls', async (req, res, next) => {
     try {
-<<<<<<< HEAD
-      const { destination_url: destinationUrl, customURL } = req.body ?? {};
-      const { record, shortUrl } = await service.create(destinationUrl);
-=======
       const destinationUrl = (req.body ?? {}).destination_url;
       const customUrl = (req.body ?? {}).custom_url;
       const { record, shortUrl } = await service.create(destinationUrl, customUrl);
->>>>>>> 144ab5d (Updated)
       res.status(201).json({
         id: record.id,
         slug: record.slug,
         short_url: shortUrl,
         destination_url: record.destinationUrl,
-        customURL,
+        custom_url: customUrl,
         created_at: record.createdAt,
       });
     } catch (err) {
